@@ -282,7 +282,7 @@ var stressTest = (function () {
             all = Object_keys(state.results),
             worst = all.sort(function (a, b) {
                 return state.results[a].time - state.results[b].time;
-            }).slice(0, 1000);
+            }).slice(0, 2);
 
         forEach.call(worst, function (ii) {
             log += '<tr><td>Removing <strong style="font:12px monospace">' + ii +
@@ -319,7 +319,7 @@ var stressTest = (function () {
     stressTest.unbind = unbind;
     stressTest.bookmarklet = function () {
         if(stressTest.report) stressTest.report.close();
-        
+        window.alert('hi');
         //var num = prompt('How many tests would you like to run (# stress tests per selector)?', 5);
         //if (num > 0) {
             var  reportHolder = document.createElement('iframe'),
