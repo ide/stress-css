@@ -82,7 +82,9 @@ var stressTest = (function () {
           return all;
         } 
         
-        return elm.all && tagName == '*' ? elm.all : elm.getElementsByTagName(tagName);
+        var all = (elm.all && (tagName == '*')) ?
+	  elm.all : elm.getElementsByTagName(tagName);
+        return [].slice.call(all, 0);
     }
     
     /*var l = 0;
@@ -354,11 +356,11 @@ var stressTest = (function () {
                 width: body.scrollWidth, 
                 height: body.scrollHeight
               });
-            }  
+            };  
             setInterval(reportHolder.resize, 100);
             
             var zIndex = 0;
-            forEach.call([].slice.call(state.all, 0), function(elm){
+            forEach.call(state.all, function(elm){
               var z = parseInt(elm.style.zIndex, 10);
               if(!isNaN(z) && z > zIndex) zIndex = z;
             });  
