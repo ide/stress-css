@@ -6,7 +6,7 @@ var stressTest = (function () {
         for (var i in obj) if (obj.hasOwnProperty(i)) ret.push(i);
         return ret;
     },
-    forEach = Array.prototype.forEach || function (func) {
+    forEach = /* Array.prototype.forEach || */ function (func) {
         for (var i = 0, ii = this.length; i < ii; i++) {
             func.call(this, this[i], i, this);
         }
