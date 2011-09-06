@@ -371,7 +371,7 @@ var stressTest = (function () {
               background: 'white', padding: 2, 
               border: 'solid 2px #aaa',
               width: 200, height: 40,
-              borderRadius: 4, boxShadow: '0 0 8px #eee'
+              borderRadius: 4
             });
             style(reportHolder.doc.body, {
               'font': '12px Helvetica,Arials,sans-serif', 
