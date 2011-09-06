@@ -358,7 +358,7 @@ var stressTest = (function () {
             setInterval(reportHolder.resize, 100);
             
             var zIndex = 0;
-            forEach.call(state.all, function(elm){
+            forEach.call([].slice.call(state.all, 0), function(elm){
               var z = parseInt(elm.style.zIndex, 10);
               if(!isNaN(z) && z > zIndex) zIndex = z;
             });  
