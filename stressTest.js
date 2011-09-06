@@ -282,7 +282,7 @@ var stressTest = (function () {
             all = Object_keys(state.results),
             worst = all.sort(function (a, b) {
                 return state.results[a].time - state.results[b].time;
-            }).slice(0, 20);
+            }).slice(0, 1000);
 
         forEach.call(worst, function (ii) {
             log += '<tr><td>Removing <strong style="font:12px monospace">' + ii +
