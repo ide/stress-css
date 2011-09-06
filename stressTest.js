@@ -175,7 +175,7 @@ var stressTest = (function () {
       else if(which === '#') forEach.call(elms, function(elm){ elm.id = selector; });
     }
 
-    function testSelector(selector, state, finished) {
+    function testSelector(selector, state, finished, offset) {
         var elms = state.elms[selector] || [];
         removeSelector(elms, selector);
         if(state.beforeTest) state.beforeTest({ elms: elms, selector: selector });
@@ -195,15 +195,15 @@ var stressTest = (function () {
                 }
             }
             finished(selector, time);
-        });
+        }, offset);
     }
 
-    function stress(state, times, finish) {
+    function stress(state, times, finish, offset) {
         var now = +new Date, 
           lock = false,
           work = state.work || function () {  
               lock = false;
-              window.scrollTo(0, times % 2 === 0 ? 100 : 0);
+              window.scrollTo(0, (times % 2 === 0 ? 100 : 0) + offset);
               //log(times, 'scrolling', times % 2 === 0 ? 'down' : 'up');
           };
         times *= 2; //each test consists of scrolling down, and then back up
@@ -241,13 +241,14 @@ var stressTest = (function () {
           elms: indexElements(state.all), results: {}, finish: null
         }, state);
 
+        var offset = document.body.scrollTop;
         //the first test scrolls down
-        window.scrollTo(0, 0);
+        window.scrollTo(0, offset);
         
         var queue = state.queue = Object_keys(state.elms),
             testfinish = function (className, time) {
                 if (queue.length > 0 && !state.cancel) {
-                    testSelector(queue.shift(), state, testfinish);
+                    testSelector(queue.shift(), state, testfinish, offset);
                 } else {
                     unbind(document, 'keydown.stressTest');
                     if (state.finish) state.finish();
@@ -262,8 +263,8 @@ var stressTest = (function () {
         state.times = 15;
         testSelector(baselineName, state, function (c, time) {
             state.times = Math.round(15*3/time*750); //each selector should take at least 750ms*3 to run
-            testSelector(baselineName, state, testfinish);
-        });
+            testSelector(baselineName, state, testfinish, offset);
+        }, offset);
     }
 
     function formatNumber(number, leading, trailing){
