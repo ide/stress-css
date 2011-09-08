@@ -203,7 +203,7 @@ var stressTest = (function () {
           lock = false,
           work = state.work || function () {  
               lock = false;
-              window.scrollTo(0, (times % 2 === 0 ? 100 : 0) + offset);
+              window.scrollTo(0, (times % 2 === 0 ? 1000 : 0) + offset);
               //log(times, 'scrolling', times % 2 === 0 ? 'down' : 'up');
           };
         times *= 2; //each test consists of scrolling down, and then back up
